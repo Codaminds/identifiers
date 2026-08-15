@@ -1,0 +1,24 @@
+services:
+  php-app:
+    build:
+      context: .
+      target: php-base
+    container_name: identifiers-php
+    volumes:
+      - ./packages/php:/app
+      - ./spec:/app/spec
+      - ./test-vectors:/app/test-vectors
+    working_dir: /app
+    tty: true
+
+  node-app:
+    build:
+      context: .
+      target: node-base
+    container_name: identifiers-node
+    volumes:
+      - ./packages/typescript:/app
+      - ./spec:/app/spec
+      - ./test-vectors:/app/test-vectors
+    working_dir: /app
+    tty: true
