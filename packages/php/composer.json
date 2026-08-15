@@ -13,16 +13,19 @@
     "php": "^8.1"
   },
   "require-dev": {
-    "phpunit/phpunit": "^10.0"
+    "phpunit/phpunit": "^10.0 || ^11.0"
+  },
+  "scripts": {
+    "test": "vendor/bin/phpunit"
   },
   "autoload": {
     "psr-4": {
-      "Codaminds\\Identifiers\\": "packages/php/src/"
+      "Codaminds\\Identifiers\\": "src/"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Codaminds\\Identifiers\\Tests\\": "packages/php/tests/"
+      "Codaminds\\Identifiers\\Tests\\": "tests/"
     }
   }
 }
