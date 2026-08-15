@@ -1,0 +1,36 @@
+{
+  "country": "EC",
+  "identifier": "national-id",
+  "cases": [
+    {
+      "input": "0926687856",
+      "expected": true,
+      "description": "Cédula válida estándar"
+    },
+    {
+      "input": "0926687857",
+      "expected": false,
+      "description": "Checksum incorrecto"
+    },
+    {
+      "input": "3526687856",
+      "expected": false,
+      "description": "Provincia fuera de rango"
+    },
+    {
+      "input": "0976687856",
+      "expected": false,
+      "description": "Tercer dígito no válido para persona natural"
+    },
+    {
+      "input": "092668785",
+      "expected": false,
+      "description": "Longitud menor a 10 dígitos"
+    },
+    {
+      "input": "0926687856A",
+      "expected": false,
+      "description": "Contiene caracteres no numéricos"
+    }
+  ]
+}
