@@ -13,7 +13,11 @@ Thumbs.db
 /packages/php/composer.lock
 /packages/php/.phpunit.cache
 /packages/php/.php-cs-fixer.cache
+/packages/php/.phpunit.result.*
 
 # General build/test artifacts
 coverage/
 dist/
+
+#Ides
+.idea/
