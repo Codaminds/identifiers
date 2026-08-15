@@ -1,0 +1,19 @@
+# OS
+.DS_Store
+Thumbs.db
+
+# Node / TypeScript
+/packages/typescript/node_modules/
+/packages/typescript/dist/
+/packages/typescript/coverage/
+/packages/typescript/*.tsbuildinfo
+
+# PHP / Composer
+/packages/php/vendor/
+/packages/php/composer.lock
+/packages/php/.phpunit.cache
+/packages/php/.php-cs-fixer.cache
+
+# General build/test artifacts
+coverage/
+dist/
