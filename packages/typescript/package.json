@@ -4,8 +4,9 @@
   "description": "Open-source multi-language library for validating national identifiers with a common specification.",
   "main": "dist/index.js",
   "scripts": {
-    "build": "tsc",
-    "test": "jest",
+    "build": "tsup src/index.ts --format cjs,esm --dts",
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
     "lint": "eslint .",
     "prepare": "npm run build"
   },
@@ -28,6 +29,9 @@
   "author": "codediaz <codediaz@outlook.es>",
   "license": "MIT",
   "devDependencies": {
-    "typescript": "^7.0.2"
+    "@types/node": "^26.2.0",
+    "tsup": "^8.5.1",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.10"
   }
 }
