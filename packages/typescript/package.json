@@ -1,0 +1,33 @@
+{
+  "name": "@codaminds/identifiers",
+  "version": "0.1.0",
+  "description": "Open-source multi-language library for validating national identifiers with a common specification.",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "jest",
+    "lint": "eslint .",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Codaminds/identifiers.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Codaminds/identifiers/issues"
+  },
+  "homepage": "https://github.com/Codaminds/identifiers#readme",
+  "keywords": [
+    "identifiers",
+    "validation",
+    "php",
+    "typescript",
+    "open-source",
+    "multi-language"
+  ],
+  "author": "codediaz <codediaz@outlook.es>",
+  "license": "MIT",
+  "devDependencies": {
+    "typescript": "^7.0.2"
+  }
+}
