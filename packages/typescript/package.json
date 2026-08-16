@@ -1,14 +1,17 @@
 {
   "name": "@codaminds/identifiers",
   "version": "0.1.0",
+  "engines": {
+    "node": ">=20.12.0"
+  },
   "description": "Open-source multi-language library for validating national identifiers with a common specification.",
   "main": "dist/index.js",
   "scripts": {
     "build": "tsup src/index.ts --format cjs,esm --dts",
     "test": "vitest run",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint .",
-    "prepare": "npm run build"
+    "lint": "biome check src tests",
+    "format": "biome format --write src tests"
   },
   "repository": {
     "type": "git",
@@ -29,6 +32,7 @@
   "author": "codediaz <codediaz@outlook.es>",
   "license": "MIT",
   "devDependencies": {
+    "@biomejs/biome": "^2.5.8",
     "@types/node": "^26.2.0",
     "tsup": "^8.5.1",
     "typescript": "^7.0.2",
