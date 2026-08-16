@@ -6,6 +6,7 @@ namespace Codaminds\Identifiers;
 
 use Codaminds\Identifiers\Contracts\ValidatorInterface;
 use Codaminds\Identifiers\Countries\EC\NationalIdValidator;
+use Codaminds\Identifiers\Countries\EC\RucValidator;
 use Codaminds\Identifiers\ValueObjects\ValidationResult;
 use InvalidArgumentException;
 
@@ -37,10 +38,21 @@ final class Identifier
         self::$validators[$key] = $validator;
     }
 
+    /**
+     * Resets the registry state (useful for test isolation).
+     */
+    public static function clear(): void
+    {
+        self::$validators = [];
+    }
+
     private static function bootDefaultValidators(): void
     {
         if (empty(self::$validators)) {
-            self::register(new NationalIdValidator());
+            $nationalIdValidator = new NationalIdValidator();
+
+            self::register($nationalIdValidator);
+            self::register(new RucValidator($nationalIdValidator));
         }
     }
 
