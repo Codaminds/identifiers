@@ -1,0 +1,99 @@
+{
+  "country": "EC",
+  "document": "tax-id",
+  "name": "Registro Único de Contribuyentes (RUC)",
+  "cases": [
+    {
+      "input": "0926687856001",
+      "expected": true,
+      "description": "Valid natural person RUC (matches valid national-id + 001)"
+    },
+    {
+      "input": "1790016919001",
+      "expected": true,
+      "description": "Valid private company RUC (third digit 9, mod 11 check on 10th digit)"
+    },
+    {
+      "input": "1760000820001",
+      "expected": true,
+      "description": "Valid public entity RUC (third digit 6, mod 11 check on 9th digit)"
+    },
+    {
+      "input": "0926687856000",
+      "expected": false,
+      "errorCode": "INVALID_ESTABLISHMENT",
+      "errorMessage": "Establishment code must be greater than zero",
+      "description": "Invalid natural person RUC ending in 000"
+    },
+    {
+      "input": "1790016919000",
+      "expected": false,
+      "errorCode": "INVALID_ESTABLISHMENT",
+      "errorMessage": "Establishment code must be greater than zero",
+      "description": "Invalid private company RUC ending in 000"
+    },
+    {
+      "input": "1760000820000",
+      "expected": false,
+      "errorCode": "INVALID_ESTABLISHMENT",
+      "errorMessage": "Establishment code must be greater than zero",
+      "description": "Invalid public entity RUC ending in 0000"
+    },
+    {
+      "input": "0926687857001",
+      "expected": false,
+      "errorCode": "INVALID_CHECKSUM",
+      "errorMessage": "Verification digit does not match algorithm",
+      "description": "Invalid natural person RUC (checksum failed on national-id part)"
+    },
+    {
+      "input": "1790016918001",
+      "expected": false,
+      "errorCode": "INVALID_CHECKSUM",
+      "errorMessage": "Verification digit does not match algorithm",
+      "description": "Invalid private company RUC (bad 10th digit)"
+    },
+    {
+      "input": "1760000830001",
+      "expected": false,
+      "errorCode": "INVALID_CHECKSUM",
+      "errorMessage": "Verification digit does not match algorithm",
+      "description": "Invalid public entity RUC (bad 9th digit)"
+    },
+    {
+      "input": "9990016919001",
+      "expected": false,
+      "errorCode": "INVALID_PROVINCE_CODE",
+      "errorMessage": "Province code must be between 01 and 24, or 30",
+      "description": "Invalid province prefix"
+    },
+    {
+      "input": "1770016919001",
+      "expected": false,
+      "errorCode": "INVALID_THIRD_DIGIT",
+      "errorMessage": "Third digit 7 is invalid for Ecuadorian RUC",
+      "description": "Invalid third digit (7 or 8 are reserved/invalid)"
+    },
+    {
+      "input": "179001691900",
+      "expected": false,
+      "errorCode": "INVALID_LENGTH",
+      "errorMessage": "Value must be exactly 13 digits",
+      "description": "Too short (12 digits)"
+    },
+    {
+      "input": "17900169190011",
+      "expected": false,
+      "errorCode": "INVALID_LENGTH",
+      "errorMessage": "Value must be exactly 13 digits",
+      "description": "Too long (14 digits)"
+    },
+    {
+      "input": "179001691900A",
+      "expected": false,
+      "errorCode": "INVALID_FORMAT",
+      "errorMessage": "Value must contain only numeric digits",
+      "description": "Contains non-numeric characters"
+    }
+  ]
+}
