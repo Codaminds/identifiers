@@ -34,28 +34,29 @@ yarn add @codaminds/identifiers
 
 ##  Usage
 
-#### Simple Boolean Validation
 ```ts
 import { Identifier } from '@codaminds/identifiers';
 
-const result = Identifier.validate('EC', 'national-id', '0926687857');
+// Quick checks
+const isValidId = Identifier.isValid('EC', 'national-id', '0926687856');
+const isValidRuc = Identifier.isValid('EC', 'tax-id', '0926687856001');
 
-if (result.isValid) {
-    console.log('Valid document!');
-} else {
-    console.error('Validation failed:', {
-        code: result.errorCode,       // e.g., 'INVALID_CHECKSUM'
-        message: result.errorMessage, // e.g., 'Verification digit does not match algorithm'
-    });
+// Detailed validation
+const result = Identifier.validate('EC', 'tax-id', '0926687856000');
+
+if (!result.isValid) {
+    console.log(result.errorCode);    // 'INVALID_ESTABLISHMENT'
+    console.log(result.errorMessage); // 'Establishment code must be greater than zero'
 }
 ```
 ---
 
 ## Supported Identifiers
 
-| Country       | Identifier | Code | TS Support |
+| Country       | Identifier | Code | Support |
 |:--------------| :--- | :--- |:---------:|
 | 🇪🇨  Ecuador | Cédula de Identidad | `national-id` |     ✅     |
+| 🇪🇨 Ecuador | Registro Único de Contribuyentes (RUC) | `tax-id` | ✅ |
 
 ---
 ## Error Codes
