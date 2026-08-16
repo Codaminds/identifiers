@@ -1,0 +1,41 @@
+name: Publish NPM Package
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  publish:
+    name: Build & Publish to NPM
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Install dependencies
+        working-directory: packages/typescript
+        run: npm ci
+
+      - name: Run Quality Checks
+        working-directory: packages/typescript
+        env:
+          TEST_VECTORS_DIR: ${{ github.workspace }}/test-vectors
+        run: |
+          npm run typecheck
+          npm test
+
+      - name: Build dist files
+        working-directory: packages/typescript
+        run: npm run build
+
+      - name: Publish Package
+        working-directory: packages/typescript
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
