@@ -23,6 +23,7 @@
 | Country | Document Type | Code | PHP | TypeScript |
 | :--- | :--- | :--- | :---: | :---: |
 | 🇪🇨 Ecuador | Cédula de Identidad | `national-id` | ✅ | ✅ |
+| 🇪🇨 Ecuador | Registro Único de Contribuyentes (RUC) | `tax-id` | ✅ | ✅ |
 
 ---
 
