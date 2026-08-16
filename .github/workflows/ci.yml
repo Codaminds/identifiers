@@ -1,0 +1,61 @@
+name: CI Suite
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  php-suite:
+    name: PHP Tests (v${{ matrix.php }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        php: ['8.2', '8.3']
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          coverage: none
+
+      - name: Install dependencies
+        working-directory: packages/php
+        run: composer install --prefer-dist --no-progress
+
+      - name: Run Tests
+        working-directory: packages/php
+        env:
+          TEST_VECTORS_DIR: ${{ github.workspace }}/test-vectors
+        run: composer test
+
+  node-suite:
+    name: Node.js Tests (v${{ matrix.node }})
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: ['18', '20', '22']
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: 'npm'
+          cache-dependency-path: packages/typescript/package-lock.json
+
+      - name: Install dependencies
+        working-directory: packages/typescript
+        run: npm ci
+
+      - name: Typecheck & Test
+        working-directory: packages/typescript
+        env:
+          TEST_VECTORS_DIR: ${{ github.workspace }}/test-vectors
+        run: |
+          npm run typecheck
+          npm test
