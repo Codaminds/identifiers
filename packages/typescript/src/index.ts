@@ -1,14 +1,17 @@
 import type { IdentifierValidator, ValidationResult } from "./types.js";
 import { EcNationalIdValidator } from "./countries/EC/NationalIdValidator.js";
+import { EcRucValidator } from "./countries/EC/RucValidator.js";
 
 export * from "./types.js";
-export { EcNationalIdValidator };
+export { EcNationalIdValidator, EcRucValidator };
 
 class IdentifierRegistry {
     private validators = new Map<string, IdentifierValidator>();
 
     constructor() {
-        this.register(new EcNationalIdValidator());
+        const ecNationalId = new EcNationalIdValidator();
+        this.register(ecNationalId);
+        this.register(new EcRucValidator(ecNationalId));
     }
 
     public register(validator: IdentifierValidator): void {
