@@ -1,4 +1,4 @@
-import { describe, it, expect } from "vitest";
+import { describe, expect, it } from "vitest";
 import { EcNationalIdValidator } from "../../../src/countries/EC/NationalIdValidator.js";
 import { Identifier } from "../../../src/index.js";
 import { loadVector } from "../../support/load-vectors.js";

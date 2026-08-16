@@ -1,6 +1,6 @@
-import type { IdentifierValidator, ValidationResult } from "./types.js";
 import { EcNationalIdValidator } from "./countries/EC/NationalIdValidator.js";
 import { EcRucValidator } from "./countries/EC/RucValidator.js";
+import type { IdentifierValidator, ValidationResult } from "./types.js";
 
 export * from "./types.js";
 export { EcNationalIdValidator, EcRucValidator };
