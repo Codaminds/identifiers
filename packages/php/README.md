@@ -26,15 +26,17 @@ composer require codaminds/identifiers
 ```php
 use Codaminds\Identifiers\Identifier;
 
-// Quick Boolean check
-$isValid = Identifier::isValid('EC', 'national-id', '0926687856'); // true
+// National ID (Cédula)
+$isValidId = Identifier::isValid('EC', 'national-id', '0926687856');
 
-// Detailed validation result
-$result = Identifier::validate('EC', 'national-id', '0926687857');
+// Tax ID (RUC - Natural, Public, or Private)
+$isValidRuc = Identifier::isValid('EC', 'tax-id', '0926687856001');
 
+// Detailed validation
+$result = Identifier::validate('EC', 'tax-id', '0926687856000');
 if (!$result->isValid) {
-    echo $result->errorCode;    // 'INVALID_CHECKSUM'
-    echo $result->errorMessage; // 'Verification digit does not match Luhn mod 10 algorithm'
+    echo $result->errorCode;    // 'INVALID_ESTABLISHMENT'
+    echo $result->errorMessage; // 'Establishment code must be greater than zero'
 }
 ```
 
@@ -42,11 +44,12 @@ if (!$result->isValid) {
 
 ## Supported Identifiers
 
-| Country       | Identifier | Code | PHP Support |
+| Country       | Identifier | Code | Support |
 |:--------------| :--- | :--- | :---: |
 | 🇪🇨  Ecuador | Cédula de Identidad | `national-id` | ✅ |
+| 🇪🇨 Ecuador | Registro Único de Contribuyentes (RUC) | `tax-id` | ✅ |
 
 ---
 
 ## License
-This project is licensed under the [MIT License](LICENSE).
+MIT © [Codaminds](LICENSE).
