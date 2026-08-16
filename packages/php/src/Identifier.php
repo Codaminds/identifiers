@@ -20,7 +20,7 @@ final class Identifier
         self::bootDefaultValidators();
         $key = self::resolveKey($country, $type);
 
-        if (!isset(self::$validators[$key])) {
+        if (! isset(self::$validators[$key])) {
             throw new InvalidArgumentException("Unsupported identifier validator: [{$key}]");
         }
 
@@ -49,7 +49,7 @@ final class Identifier
     private static function bootDefaultValidators(): void
     {
         if (empty(self::$validators)) {
-            $nationalIdValidator = new NationalIdValidator();
+            $nationalIdValidator = new NationalIdValidator;
 
             self::register($nationalIdValidator);
             self::register(new RucValidator($nationalIdValidator));
@@ -58,6 +58,6 @@ final class Identifier
 
     private static function resolveKey(string $country, string $type): string
     {
-        return strtoupper(trim($country)) . ':' . strtolower(trim($type));
+        return strtoupper(trim($country)).':'.strtolower(trim($type));
     }
 }

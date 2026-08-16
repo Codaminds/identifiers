@@ -10,7 +10,9 @@ use Codaminds\Identifiers\ValueObjects\ValidationResult;
 final class NationalIdValidator implements ValidatorInterface
 {
     private const COUNTRY = 'EC';
+
     private const TYPE = 'national-id';
+
     private const COEFFICIENTS = [2, 1, 2, 1, 2, 1, 2, 1, 2];
 
     public function countryCode(): string
@@ -27,7 +29,7 @@ final class NationalIdValidator implements ValidatorInterface
     {
         $sanitized = preg_replace('/[-\s]/', '', trim($value));
 
-        if (!preg_match('/^\d{10}$/', $sanitized)) {
+        if (! preg_match('/^\d{10}$/', $sanitized)) {
             return ValidationResult::failure(
                 self::COUNTRY,
                 self::TYPE,
@@ -37,7 +39,7 @@ final class NationalIdValidator implements ValidatorInterface
         }
 
         $province = (int) substr($sanitized, 0, 2);
-        if (!(($province >= 1 && $province <= 24) || $province === 30)) {
+        if (! (($province >= 1 && $province <= 24) || $province === 30)) {
             return ValidationResult::failure(
                 self::COUNTRY,
                 self::TYPE,

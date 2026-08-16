@@ -10,20 +10,24 @@ use Codaminds\Identifiers\ValueObjects\ValidationResult;
 final class RucValidator implements ValidatorInterface
 {
     private const COUNTRY_CODE = 'EC';
+
     private const IDENTIFIER_TYPE = 'tax-id';
 
     private const MIN_PROVINCE = 1;
+
     private const MAX_PROVINCE = 24;
+
     private const JURISDICTION_EXTERIOR = 30;
 
     private const THIRD_DIGIT_PUBLIC = 6;
+
     private const THIRD_DIGIT_PRIVATE = 9;
 
     /** @var list<int> */
     private const COEFFICIENTS_PRIVATE = [4, 3, 2, 7, 6, 5, 4, 3, 2];
 
     /** @var list<int> */
-    private const COEFFICIENTS_PUBLIC  = [3, 2, 7, 6, 5, 4, 3, 2];
+    private const COEFFICIENTS_PUBLIC = [3, 2, 7, 6, 5, 4, 3, 2];
 
     public function __construct(
         private readonly ?ValidatorInterface $nationalIdValidator = null
@@ -43,7 +47,7 @@ final class RucValidator implements ValidatorInterface
     {
         $sanitized = trim($value);
 
-        if (!ctype_digit($sanitized)) {
+        if (! ctype_digit($sanitized)) {
             return $this->failure('INVALID_FORMAT', 'Value must contain only numeric digits');
         }
 
@@ -85,7 +89,7 @@ final class RucValidator implements ValidatorInterface
         }
 
         $nationalId = substr($value, 0, 10);
-        $validator = $this->nationalIdValidator ?? new NationalIdValidator();
+        $validator = $this->nationalIdValidator ?? new NationalIdValidator;
         $result = $validator->validate($nationalId);
 
         if ($result->isFailure()) {
@@ -133,7 +137,7 @@ final class RucValidator implements ValidatorInterface
     }
 
     /**
-     * @param list<int> $coefficients
+     * @param  list<int>  $coefficients
      */
     private function computeMod11Verifier(string $value, array $coefficients): int
     {

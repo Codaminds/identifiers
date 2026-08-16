@@ -36,6 +36,6 @@ final readonly class ValidationResult
 
     public function isFailure(): bool
     {
-        return !$this->isValid;
+        return ! $this->isValid;
     }
 }

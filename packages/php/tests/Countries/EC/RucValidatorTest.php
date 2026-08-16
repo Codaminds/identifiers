@@ -21,7 +21,7 @@ final class RucValidatorTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->validator = new RucValidator(new NationalIdValidator());
+        $this->validator = new RucValidator(new NationalIdValidator);
     }
 
     /**
@@ -60,7 +60,7 @@ final class RucValidatorTest extends TestCase
         $this->assertSame('EC', $result->country);
         $this->assertSame('tax-id', $result->identifierType);
 
-        if (!$expected) {
+        if (! $expected) {
             $this->assertNotNull($result->errorCode);
             $this->assertNotNull($result->errorMessage);
 
