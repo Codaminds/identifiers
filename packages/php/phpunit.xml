@@ -3,6 +3,9 @@
          xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.5/phpunit.xsd"
          bootstrap="vendor/autoload.php"
          colors="true">
+    <php>
+        <env name="TEST_VECTORS_DIR" value="/app/test-vectors" force="false"/>
+    </php>
     <testsuites>
         <testsuite name="Unit">
             <directory>tests</directory>
