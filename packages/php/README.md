@@ -42,9 +42,9 @@ if (!$result->isValid) {
 
 ## Supported Identifiers
 
-| Country | Identifier | Code | PHP Support | TS Support |
-| :--- | :--- | :--- | :---: | :---: |
-| 🇪🇨 Ecuador | Cédula de Identidad | `national-id` | ✅ | ✅ |
+| Country       | Identifier | Code | PHP Support |
+|:--------------| :--- | :--- | :---: |
+| 🇪🇨  Ecuador | Cédula de Identidad | `national-id` | ✅ |
 
 ---
 
