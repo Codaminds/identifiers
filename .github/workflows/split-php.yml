@@ -10,16 +10,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
-      - name: Subtree Split to PHP repo
-        uses: danharrin/monorepo-split-action@v2.3.0
+      - name: Monorepo Split of PHP Package
+        uses: symplify/monorepo-split-github-action@v2.3.0
         with:
           package_directory: 'packages/php'
           repository_organization: 'Codaminds'
           repository_name: 'identifiers-php'
           user_name: 'codediaz'
           user_email: 'codediaz@outlook.es'
+          branch: 'main'
         env:
           GITHUB_TOKEN: ${{ secrets.ACCESS_TOKEN_GITHUB }}
