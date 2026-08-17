@@ -1,6 +1,6 @@
 {
   "country": "EC",
-  "document": "tax-id",
+  "identifier": "tax-id",
   "name": "Registro Único de Contribuyentes (RUC)",
   "cases": [
     {
