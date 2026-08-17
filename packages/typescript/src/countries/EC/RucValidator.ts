@@ -5,12 +5,8 @@ export class EcRucValidator implements IdentifierValidator {
 	public readonly countryCode = "EC";
 	public readonly identifierType = "tax-id";
 
-	private static readonly COEFFICIENTS_PRIVATE = [
-		4, 3, 2, 7, 6, 5, 4, 3, 2,
-	] as const;
-	private static readonly COEFFICIENTS_PUBLIC = [
-		3, 2, 7, 6, 5, 4, 3, 2,
-	] as const;
+	private static readonly THIRD_DIGIT_PUBLIC = 6;
+	private static readonly THIRD_DIGIT_PRIVATE = 9;
 
 	constructor(
 		private readonly nationalIdValidator: IdentifierValidator = new EcNationalIdValidator(),
@@ -40,18 +36,18 @@ export class EcRucValidator implements IdentifierValidator {
 
 		const thirdDigit = parseInt(sanitized[2], 10);
 
-		// 1. Persona Natural (< 6)
-		if (thirdDigit < 6) {
+		// 1. Persona Natural: Tercer dígito de 0 a 5
+		if (thirdDigit < EcRucValidator.THIRD_DIGIT_PUBLIC) {
 			return this.validateNaturalPerson(sanitized);
 		}
 
-		// 2. Entidad Pública (== 6)
-		if (thirdDigit === 6) {
+		// 2. Entidad Pública: Tercer dígito igual a 6
+		if (thirdDigit === EcRucValidator.THIRD_DIGIT_PUBLIC) {
 			return this.validatePublicEntity(sanitized);
 		}
 
-		// 3. Sociedad Privada / Extranjero sin cédula (== 9)
-		if (thirdDigit === 9) {
+		// 3. Sociedad Privada / Extranjero sin cédula: Tercer dígito igual a 9
+		if (thirdDigit === EcRucValidator.THIRD_DIGIT_PRIVATE) {
 			return this.validatePrivateCompany(sanitized);
 		}
 
@@ -92,19 +88,6 @@ export class EcRucValidator implements IdentifierValidator {
 			);
 		}
 
-		const verifier = parseInt(value[9], 10);
-		const expectedVerifier = this.computeMod11Verifier(
-			value,
-			EcRucValidator.COEFFICIENTS_PRIVATE,
-		);
-
-		if (verifier !== expectedVerifier) {
-			return this.failure(
-				"INVALID_CHECKSUM",
-				"Verification digit does not match algorithm",
-			);
-		}
-
 		return this.success();
 	}
 
@@ -117,33 +100,7 @@ export class EcRucValidator implements IdentifierValidator {
 			);
 		}
 
-		const verifier = parseInt(value[8], 10);
-		const expectedVerifier = this.computeMod11Verifier(
-			value,
-			EcRucValidator.COEFFICIENTS_PUBLIC,
-		);
-
-		if (verifier !== expectedVerifier) {
-			return this.failure(
-				"INVALID_CHECKSUM",
-				"Verification digit does not match algorithm",
-			);
-		}
-
 		return this.success();
-	}
-
-	private computeMod11Verifier(
-		value: string,
-		coefficients: readonly number[],
-	): number {
-		let sum = 0;
-		for (let i = 0; i < coefficients.length; i++) {
-			sum += parseInt(value[i], 10) * coefficients[i];
-		}
-
-		const remainder = sum % 11;
-		return remainder === 0 ? 0 : 11 - remainder;
 	}
 
 	private success(): ValidationResult {
