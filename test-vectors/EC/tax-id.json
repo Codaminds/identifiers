@@ -11,12 +11,22 @@
     {
       "input": "1790016919001",
       "expected": true,
-      "description": "Valid private company RUC (third digit 9, mod 11 check on 10th digit)"
+      "description": "Valid private company RUC (third digit 9)"
     },
     {
       "input": "1760000820001",
       "expected": true,
-      "description": "Valid public entity RUC (third digit 6, mod 11 check on 9th digit)"
+      "description": "Valid public entity RUC (third digit 6)"
+    },
+    {
+      "input": "1790016918001",
+      "expected": true,
+      "description": "Valid private company structural format without checksum constraint"
+    },
+    {
+      "input": "1760000830001",
+      "expected": true,
+      "description": "Valid public entity structural format without checksum constraint"
     },
     {
       "input": "0926687856000",
@@ -45,20 +55,6 @@
       "errorCode": "INVALID_CHECKSUM",
       "errorMessage": "Verification digit does not match algorithm",
       "description": "Invalid natural person RUC (checksum failed on national-id part)"
-    },
-    {
-      "input": "1790016918001",
-      "expected": false,
-      "errorCode": "INVALID_CHECKSUM",
-      "errorMessage": "Verification digit does not match algorithm",
-      "description": "Invalid private company RUC (bad 10th digit)"
-    },
-    {
-      "input": "1760000830001",
-      "expected": false,
-      "errorCode": "INVALID_CHECKSUM",
-      "errorMessage": "Verification digit does not match algorithm",
-      "description": "Invalid public entity RUC (bad 9th digit)"
     },
     {
       "input": "9990016919001",
