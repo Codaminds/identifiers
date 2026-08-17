@@ -20,25 +20,21 @@
     * Debe ser diferente de `000`.
     * Habitualmente corresponde a valores como `001`, `002`, etc.
 
-### Sociedad Privada / Extranjero sin cédula
+### Sociedades Privadas y Extranjeros sin Cédula (`3er dígito = 9`)
 
-* **Dígito 3:** Exactamente `9`.
-* **Dígitos 1-9:** Número base del contribuyente.
-* **Dígito 10:** Dígito verificador, calculado mediante el algoritmo Módulo 11.
-* **Dígitos 11-13:** Código de establecimiento.
-
-    * Debe ser diferente de `000`.
-    * Habitualmente corresponde a valores como `001`, `002`, etc.
+* **Longitud**: Exactamente 13 dígitos numéricos.
+* **Código de Provincia**: Los dígitos 1 y 2 deben estar en el rango de `01` a `24`, o ser `30` (jurisdicción especial / exterior).
+* **Tercer Dígito**: Debe ser estrictamente igual a `9`.
+* **Código de Establecimiento**: Los dígitos 11 al 13 deben ser numéricos y estrictamente mayores a cero (`001` a `999`, nunca `000`).
+* **Dígito Verificador**: De acuerdo con las directrices oficiales del SRI, este tipo de RUC no cuenta con un algoritmo específico obligatorio de dígito verificador, por lo que no se aplica validación por checksum para evitar falsos rechazos en documentos vigentes.
 
 ### Entidad Pública
 
-* **Dígito 3:** Exactamente `6`.
-* **Dígitos 1-8:** Número base de la entidad.
-* **Dígito 9:** Dígito verificador, calculado mediante el algoritmo Módulo 11.
-* **Dígitos 10-13:** Código de establecimiento.
-
-    * Debe ser diferente de `0000`.
-    * Habitualmente corresponde a valores como `0001`, `0002`, etc.
+* **Longitud**: Exactamente 13 dígitos numéricos.
+* **Código de Provincia**: Los dígitos 1 y 2 deben estar en el rango de `01` a `24`, o ser `30` (jurisdicción especial / exterior).
+* **Tercer Dígito**: Debe ser estrictamente igual a `6`.
+* **Código de Establecimiento**: Los dígitos 10 al 13 deben ser numéricos y estrictamente mayores a cero (`0001` a `9999`, nunca `0000`).
+* **Dígito Verificador**: De acuerdo con las directrices oficiales del SRI, este tipo de RUC no cuenta con un algoritmo específico obligatorio de dígito verificador, por lo que no se aplica validación por checksum para evitar falsos rechazos en documentos vigentes.
 
 ## Algoritmo de Verificación
 
