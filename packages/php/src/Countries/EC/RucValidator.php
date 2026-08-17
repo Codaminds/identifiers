@@ -23,12 +23,6 @@ final class RucValidator implements ValidatorInterface
 
     private const THIRD_DIGIT_PRIVATE = 9;
 
-    /** @var list<int> */
-    private const COEFFICIENTS_PRIVATE = [4, 3, 2, 7, 6, 5, 4, 3, 2];
-
-    /** @var list<int> */
-    private const COEFFICIENTS_PUBLIC = [3, 2, 7, 6, 5, 4, 3, 2];
-
     public function __construct(
         private readonly ?ValidatorInterface $nationalIdValidator = null
     ) {}
@@ -77,7 +71,6 @@ final class RucValidator implements ValidatorInterface
             return $this->validatePrivateCompany($sanitized);
         }
 
-        // Dígitos 7 y 8 son reservados / inválidos
         return $this->failure('INVALID_THIRD_DIGIT', "Third digit {$thirdDigit} is invalid for Ecuadorian RUC");
     }
 
@@ -109,13 +102,6 @@ final class RucValidator implements ValidatorInterface
             return $this->failure('INVALID_ESTABLISHMENT', 'Establishment code must be greater than zero');
         }
 
-        $verifier = (int) $value[9];
-        $expectedVerifier = $this->computeMod11Verifier($value, self::COEFFICIENTS_PRIVATE);
-
-        if ($verifier !== $expectedVerifier) {
-            return $this->failure('INVALID_CHECKSUM', 'Verification digit does not match algorithm');
-        }
-
         return $this->success();
     }
 
@@ -126,31 +112,7 @@ final class RucValidator implements ValidatorInterface
             return $this->failure('INVALID_ESTABLISHMENT', 'Establishment code must be greater than zero');
         }
 
-        $verifier = (int) $value[8];
-        $expectedVerifier = $this->computeMod11Verifier($value, self::COEFFICIENTS_PUBLIC);
-
-        if ($verifier !== $expectedVerifier) {
-            return $this->failure('INVALID_CHECKSUM', 'Verification digit does not match algorithm');
-        }
-
         return $this->success();
-    }
-
-    /**
-     * @param  list<int>  $coefficients
-     */
-    private function computeMod11Verifier(string $value, array $coefficients): int
-    {
-        $sum = 0;
-        $total = count($coefficients);
-
-        for ($i = 0; $i < $total; $i++) {
-            $sum += ((int) $value[$i]) * $coefficients[$i];
-        }
-
-        $remainder = $sum % 11;
-
-        return ($remainder === 0) ? 0 : (11 - $remainder);
     }
 
     private function success(): ValidationResult
