@@ -5,6 +5,8 @@ export interface TestCase {
 	input: string;
 	expected: boolean;
 	description: string;
+	errorCode?: string;
+	errorMessage?: string;
 }
 
 export interface TestVector {

@@ -39,7 +39,7 @@ final class RucValidator implements ValidatorInterface
 
     public function validate(string $value): ValidationResult
     {
-        $sanitized = trim($value);
+        $sanitized = preg_replace('/[-\s]/', '', trim($value));
 
         if (! ctype_digit($sanitized)) {
             return $this->failure('INVALID_FORMAT', 'Value must contain only numeric digits');

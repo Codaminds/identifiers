@@ -53,7 +53,7 @@
       "input": "0926687857001",
       "expected": false,
       "errorCode": "INVALID_CHECKSUM",
-      "errorMessage": "Verification digit does not match algorithm",
+      "errorMessage": "Verification digit does not match Luhn mod 10 algorithm",
       "description": "Invalid natural person RUC (checksum failed on national-id part)"
     },
     {

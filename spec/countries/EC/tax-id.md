@@ -59,37 +59,13 @@ Se aplica el algoritmo **Módulo 10**:
 
 Para los RUC cuyo tercer dígito es `9`, el dígito verificador se encuentra en la **posición 10**.
 
-Se aplica el algoritmo **Módulo 11**:
-
-1. Tomar los primeros 9 dígitos.
-2. Utilizar los coeficientes `[4, 3, 2, 7, 6, 5, 4, 3, 2]`.
-3. Multiplicar cada dígito por su coeficiente correspondiente.
-4. Sumar los resultados.
-5. Calcular el residuo de la división entre `11`.
-6. Calcular el dígito verificador:
-
-    * Si el residuo es `0`, el dígito esperado es `0`.
-    * Si el residuo es `1`, el RUC es inválido.
-    * En los demás casos, el dígito esperado es `11 - residuo`.
-7. El RUC es válido si el dígito esperado coincide con el **décimo dígito**.
+De acuerdo con las directrices oficiales del SRI, este tipo de RUC no cuenta con un algoritmo específico obligatorio de dígito verificador, por lo que en esta especificación **no se aplica validación por checksum** para evitar falsos rechazos en documentos vigentes.
 
 ### Entidad Pública
 
 Para los RUC cuyo tercer dígito es `6`, el dígito verificador se encuentra en la **posición 9**.
 
-Se aplica el algoritmo **Módulo 11**:
-
-1. Tomar los primeros 8 dígitos.
-2. Utilizar los coeficientes `[3, 2, 7, 6, 5, 4, 3, 2]`.
-3. Multiplicar cada dígito por su coeficiente correspondiente.
-4. Sumar los resultados.
-5. Calcular el residuo de la división entre `11`.
-6. Calcular el dígito verificador:
-
-    * Si el residuo es `0`, el dígito esperado es `0`.
-    * Si el residuo es `1`, el RUC es inválido.
-    * En los demás casos, el dígito esperado es `11 - residuo`.
-7. El RUC es válido si el dígito esperado coincide con el **noveno dígito**.
+De acuerdo con las directrices oficiales del SRI, este tipo de RUC no cuenta con un algoritmo específico obligatorio de dígito verificador, por lo que en esta especificación **no se aplica validación por checksum** para evitar falsos rechazos en documentos vigentes.
 
 ## Reglas de Validación
 
@@ -98,5 +74,5 @@ Un RUC ecuatoriano se considera válido cuando:
 1. Contiene exactamente **13 dígitos numéricos**.
 2. Los dos primeros dígitos corresponden a una provincia válida (`01`-`24` o `30`).
 3. El tercer dígito determina correctamente el tipo de contribuyente.
-4. El dígito verificador coincide con el algoritmo correspondiente.
+4. Para personas naturales (tercer dígito `0` a `5`), el dígito verificador coincide con el algoritmo Módulo 10 de cédula.
 5. El código de establecimiento no es `000` para personas naturales/sociedades privadas ni `0000` para entidades públicas.

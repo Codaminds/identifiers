@@ -11,7 +11,7 @@ describe("Ecuador - RucValidator", () => {
 	describe("Test Vectors Validation", () => {
 		it.each(vector.cases)(
 			"$description (input: $input) -> expected: $expected",
-			({ input, expected }) => {
+			({ input, expected, errorCode, errorMessage }) => {
 				const result = validator.validate(input);
 
 				expect(result.isValid).toBe(expected);
@@ -21,6 +21,14 @@ describe("Ecuador - RucValidator", () => {
 				if (!expected) {
 					expect(result.errorCode).toBeDefined();
 					expect(result.errorMessage).toBeDefined();
+
+					if (errorCode !== undefined) {
+						expect(result.errorCode).toBe(errorCode);
+					}
+
+					if (errorMessage !== undefined) {
+						expect(result.errorMessage).toBe(errorMessage);
+					}
 				}
 			},
 		);

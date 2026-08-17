@@ -76,4 +76,11 @@ final class RucValidatorTest extends TestCase
         $this->assertTrue(Identifier::isValid('EC', 'tax-id', '0926687856001'));
         $this->assertFalse(Identifier::isValid('EC', 'tax-id', '0926687856000'));
     }
+
+    #[Test]
+    public function it_accepts_ruc_with_common_separators(): void
+    {
+        $this->assertTrue($this->validator->validate('0926687856-001')->isValid);
+        $this->assertTrue($this->validator->validate('0926687856 001')->isValid);
+    }
 }
