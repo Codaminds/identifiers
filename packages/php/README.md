@@ -51,5 +51,17 @@ if (!$result->isValid) {
 
 ---
 
+### Error Codes Reference
+
+| Error Code | Description | Applicable Identifiers |
+| :--- | :--- | :--- |
+| `INVALID_FORMAT` | Value contains non-numeric characters or incorrect pattern | `national-id`, `tax-id` |
+| `INVALID_LENGTH` | Length differs from the exact expected digit count | `national-id`, `tax-id` |
+| `INVALID_PROVINCE_CODE` | Province code prefix is not between `01`-`24` or `30` | `national-id`, `tax-id` |
+| `INVALID_THIRD_DIGIT` | Third digit is not within valid ranges for natural, public, or private entities | `national-id`, `tax-id` |
+| `INVALID_ESTABLISHMENT` | Establishment branch code is `000` / `0000` (must be > 0) | `tax-id` |
+| `INVALID_CHECKSUM` | Verification digit does not match algorithm validation | `national-id`, `tax-id` |
+
+
 ## License
 MIT © [Codaminds](LICENSE).
