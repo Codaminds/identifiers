@@ -26,15 +26,17 @@ composer require codaminds/identifiers
 ```php
 use Codaminds\Identifiers\Identifier;
 
-// Quick Boolean check
-$isValid = Identifier::isValid('EC', 'national-id', '0926687856'); // true
+// National ID (Cédula)
+$isValidId = Identifier::isValid('EC', 'national-id', '0926687856');
 
-// Detailed validation result
-$result = Identifier::validate('EC', 'national-id', '0926687857');
+// Tax ID (RUC - Natural, Public, or Private)
+$isValidRuc = Identifier::isValid('EC', 'tax-id', '0926687856001');
 
+// Detailed validation
+$result = Identifier::validate('EC', 'tax-id', '0926687856000');
 if (!$result->isValid) {
-    echo $result->errorCode;    // 'INVALID_CHECKSUM'
-    echo $result->errorMessage; // 'Verification digit does not match Luhn mod 10 algorithm'
+    echo $result->errorCode;    // 'INVALID_ESTABLISHMENT'
+    echo $result->errorMessage; // 'Establishment code must be greater than zero'
 }
 ```
 
@@ -42,11 +44,24 @@ if (!$result->isValid) {
 
 ## Supported Identifiers
 
-| Country       | Identifier | Code | PHP Support |
+| Country       | Identifier | Code | Support |
 |:--------------| :--- | :--- | :---: |
 | 🇪🇨  Ecuador | Cédula de Identidad | `national-id` | ✅ |
+| 🇪🇨 Ecuador | Registro Único de Contribuyentes (RUC) | `tax-id` | ✅ |
 
 ---
 
+### Error Codes Reference
+
+| Error Code | Description | Applicable Identifiers |
+| :--- | :--- | :--- |
+| `INVALID_FORMAT` | Value contains non-numeric characters or incorrect pattern | `national-id`, `tax-id` |
+| `INVALID_LENGTH` | Length differs from the exact expected digit count | `national-id`, `tax-id` |
+| `INVALID_PROVINCE_CODE` | Province code prefix is not between `01`-`24` or `30` | `national-id`, `tax-id` |
+| `INVALID_THIRD_DIGIT` | Third digit is not within valid ranges for natural, public, or private entities | `national-id`, `tax-id` |
+| `INVALID_ESTABLISHMENT` | Establishment branch code is `000` / `0000` (must be > 0) | `tax-id` |
+| `INVALID_CHECKSUM` | Verification digit does not match algorithm validation | `national-id`, `tax-id` |
+
+
 ## License
-This project is licensed under the [MIT License](LICENSE).
+MIT © [Codaminds](LICENSE).

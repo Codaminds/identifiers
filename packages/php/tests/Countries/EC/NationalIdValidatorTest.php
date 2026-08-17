@@ -20,7 +20,7 @@ final class NationalIdValidatorTest extends TestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->validator = new NationalIdValidator();
+        $this->validator = new NationalIdValidator;
     }
 
     /**
@@ -51,7 +51,7 @@ final class NationalIdValidatorTest extends TestCase
         $this->assertSame('EC', $result->country);
         $this->assertSame('national-id', $result->identifierType);
 
-        if (!$expected) {
+        if (! $expected) {
             $this->assertNotNull($result->errorCode);
             $this->assertNotNull($result->errorMessage);
         }

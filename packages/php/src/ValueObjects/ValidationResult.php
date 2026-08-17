@@ -16,11 +16,26 @@ final readonly class ValidationResult
 
     public static function success(string $country, string $type): self
     {
-        return new self(true, $country, $type);
+        return new self(
+            isValid: true,
+            country: $country,
+            identifierType: $type
+        );
     }
 
     public static function failure(string $country, string $type, string $code, string $message): self
     {
-        return new self(false, $country, $type, $code, $message);
+        return new self(
+            isValid: false,
+            country: $country,
+            identifierType: $type,
+            errorCode: $code,
+            errorMessage: $message
+        );
+    }
+
+    public function isFailure(): bool
+    {
+        return ! $this->isValid;
     }
 }

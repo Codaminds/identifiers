@@ -34,44 +34,41 @@ yarn add @codaminds/identifiers
 
 ##  Usage
 
-#### Simple Boolean Validation
 ```ts
 import { Identifier } from '@codaminds/identifiers';
 
-const result = Identifier.validate('EC', 'national-id', '0926687857');
+// Quick checks
+const isValidId = Identifier.isValid('EC', 'national-id', '0926687856');
+const isValidRuc = Identifier.isValid('EC', 'tax-id', '0926687856001');
 
-if (result.isValid) {
-    console.log('Valid document!');
-} else {
-    console.error('Validation failed:', {
-        code: result.errorCode,       // e.g., 'INVALID_CHECKSUM'
-        message: result.errorMessage, // e.g., 'Verification digit does not match algorithm'
-    });
+// Detailed validation
+const result = Identifier.validate('EC', 'tax-id', '0926687856000');
+
+if (!result.isValid) {
+    console.log(result.errorCode);    // 'INVALID_ESTABLISHMENT'
+    console.log(result.errorMessage); // 'Establishment code must be greater than zero'
 }
 ```
 ---
 
 ## Supported Identifiers
 
-| Country       | Identifier | Code | TS Support |
+| Country       | Identifier | Code | Support |
 |:--------------| :--- | :--- |:---------:|
 | 🇪🇨  Ecuador | Cédula de Identidad | `national-id` |     ✅     |
+| 🇪🇨 Ecuador | Registro Único de Contribuyentes (RUC) | `tax-id` | ✅ |
 
 ---
-## Error Codes
+### Error Codes Reference
 
-When `validate()`  fails, `errorCode` returns one of the standardized error keys:
-
-- `INVALID_FORMAT`: Value contains non-allowed characters or structure.
-
-- `INVALID_LENGTH`: Character count does not match the specification.
-
-- `INVALID_CHECKSUM`: Modulo verification algorithm failed.
-
-- `INVALID_PROVINCE_CODE`: Prefix does not belong to a valid region.
-
-- `UNSUPPORTED_IDENTIFIER`: Country or document type is not yet registered.
-
+| Error Code | Description | Applicable Identifiers |
+| :--- | :--- | :--- |
+| `INVALID_FORMAT` | Value contains non-numeric characters or incorrect pattern | `national-id`, `tax-id` |
+| `INVALID_LENGTH` | Length differs from the exact expected digit count | `national-id`, `tax-id` |
+| `INVALID_PROVINCE_CODE` | Province code prefix is not between `01`-`24` or `30` | `national-id`, `tax-id` |
+| `INVALID_THIRD_DIGIT` | Third digit is not within valid ranges for natural, public, or private entities | `national-id`, `tax-id` |
+| `INVALID_ESTABLISHMENT` | Establishment branch code is `000` / `0000` (must be > 0) | `tax-id` |
+| `INVALID_CHECKSUM` | Verification digit does not match algorithm validation | `national-id`, `tax-id` |
 
 ## License
 MIT © [Codaminds](LICENSE).

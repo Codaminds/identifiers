@@ -11,20 +11,21 @@ trait LoadsTestVectors
 {
     /**
      * @return array{country: string, identifier: string, cases: array<int, array{input: string, expected: bool, description: string}>}
+     *
      * @throws JsonException
      */
     protected static function loadVector(string $country, string $identifier): array
     {
         $baseDir = $_ENV['TEST_VECTORS_DIR'] ?? getenv('TEST_VECTORS_DIR') ?: null;
 
-        if ($baseDir === null || !is_dir($baseDir)) {
-            $fallback = realpath(__DIR__ . '/../../../../test-vectors');
+        if ($baseDir === null || ! is_dir($baseDir)) {
+            $fallback = realpath(__DIR__.'/../../../../test-vectors');
             $baseDir = $fallback !== false ? $fallback : '/app/test-vectors';
         }
 
-        $filePath = rtrim($baseDir, '/') . '/' . strtoupper($country) . '/' . $identifier . '.json';
+        $filePath = rtrim($baseDir, '/').'/'.strtoupper($country).'/'.$identifier.'.json';
 
-        if (!file_exists($filePath)) {
+        if (! file_exists($filePath)) {
             throw new RuntimeException("Test vector not found at: {$filePath}");
         }
 

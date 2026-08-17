@@ -9,6 +9,8 @@ use Codaminds\Identifiers\ValueObjects\ValidationResult;
 interface ValidatorInterface
 {
     public function countryCode(): string;
+
     public function identifierType(): string;
+
     public function validate(string $value): ValidationResult;
 }
